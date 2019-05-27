@@ -4,7 +4,10 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+//引入路由模块
 var authRouter = require('./routes/auth');
+var customerRouter = require('./routes/customer');
+
 
 var app = express();
 
@@ -18,6 +21,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'dist')));
 
+
+
 //允许跨域
 app.all('*', function (req, res, next) {
   res.header('Access-Control-Allow-Origin', '*')
@@ -27,7 +32,11 @@ app.all('*', function (req, res, next) {
   next()
 })
 
+//加载路由模块
 app.use('/auth', authRouter);
+app.use('/customer', customerRouter);
+
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
