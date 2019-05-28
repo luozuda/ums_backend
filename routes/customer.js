@@ -55,7 +55,7 @@ router.post('/all', function (req, res, next) {
 
 router.post('/add', function (req, res, next) {
     let username = req.username
-    let { name, phone, address, remarks } = req.body
+    let { name, phone, sex, address, remarks } = req.body
     //根据账号搜索账号id
     connection.query(selectAccount, [username], function (err, result) {
         if (err) {
@@ -76,12 +76,12 @@ router.post('/add', function (req, res, next) {
                         res.send({ code: -1, msg: '用户已存在列表中' })
                     } else {
                         //添加用户
-                        connection.query(insertCustomer, [name, phone, address, remarks, acc_id], function (err, result) {
+                        connection.query(insertCustomer, [name, phone, sex, address, remarks, acc_id], function (err, result) {
                             if (err) {
-                                console.log('[SELECT ERROR] - ', err.message);
+                                console.log('[INSERT ERROR] - ', err.message);
                                 return;
                             } else {
-                                // console.log(result)
+                                console.log(result)
                                 res.send({ code: 0, msg: '添加成功' })
                             }
                         })
@@ -134,6 +134,7 @@ router.post('/delete', function (req, res, next) {
             } else {
                 // console.log(result)
                 let acc_id = result[0].acc_id
+
                 //删除用户
                 connection.query(deleteCustomer, [name, acc_id], function (err, result) {
                     if (err) {
@@ -160,7 +161,7 @@ router.post('/delete', function (req, res, next) {
 
 router.post('/edit', function (req, res, next) {
     let username = req.username
-    let { name, phone, address, remarks } = req.body
+    let { name, phone, sex, address, remarks } = req.body
     if (name) {
         //根据账号搜索账号id
         connection.query(selectAccount, [username], function (err, result) {
@@ -171,9 +172,8 @@ router.post('/edit', function (req, res, next) {
                 // console.log(result)
                 let acc_id = result[0].acc_id
 
-                // console.log(name, phone, address, remarks)
                 //修改用户信息
-                connection.query(updateCustomer, [phone, address, remarks, name, acc_id], function (err, result) {
+                connection.query(updateCustomer, [phone, sex, address, remarks, name, acc_id], function (err, result) {
                     if (err) {
                         console.log('[UPDATE ERROR] - ', err.message);
                         return;
