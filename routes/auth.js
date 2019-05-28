@@ -2,12 +2,12 @@ var express = require('express');
 var router = express.Router();
 var path = require('path');
 var connection = require(path.resolve('util/dbConnection'));
-var sql = require(path.resolve('config/sql.config'));
+var {selectAccount,insertAccount} = require(path.resolve('config/sql.config'));
 var jwt = require('jsonwebtoken');
 
 router.post('/register', function (req, res, next) {
   let { username, password } = req.body;
-  connection.query(sql.selectAccount, [username], function (err, result) {
+  connection.query(selectAccount, [username], function (err, result) {
     if (err) {
       console.log('[SELECT ERROR] - ', err.message);
       return;
@@ -18,7 +18,7 @@ router.post('/register', function (req, res, next) {
       } else {
 
         //往数据库插入要注册的账号
-        connection.query(sql.insertAccount, [username, password], function (err, result) {
+        connection.query(insertAccount, [username, password], function (err, result) {
           if (err) {
             console.log('[INSERT ERROR] - ', err.message);
             return;
@@ -35,7 +35,7 @@ router.post('/register', function (req, res, next) {
 
 router.post('/login', function (req, res, next) {
   let { username, password } = req.body;
-  connection.query(sql.selectAccount, [username], function (err, result) {
+  connection.query(selectAccount, [username], function (err, result) {
     if (err) {
       console.log('[SELECT ERROR] - ', err.message);
       return;
