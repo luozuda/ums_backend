@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');//http 请求日志记录中间件
+var history = require('connect-history-api-fallback');
 
 //引入路由模块
 var authRouter = require('./routes/auth');//认证模块
@@ -19,6 +20,7 @@ app.use(logger('dev'));//打印到控制台
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(history());//使用connect-history-api-fallback
 app.use(express.static(path.join(__dirname, 'dist')));//静态资源
 
 

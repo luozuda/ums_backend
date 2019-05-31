@@ -2,6 +2,7 @@
 module.exports = {
     //account
     selectAccount: 'SELECT * FROM account WHERE username = ? ',
+    selectAccountACC_ID: 'SELECT acc_id FROM account WHERE username = ? ',
     insertAccount: 'INSERT INTO account(username,password) VALUES(?,?) ',
 
     //customer
