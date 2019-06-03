@@ -10,5 +10,6 @@ module.exports = {
     searchCustomer: 'SELECT * FROM customer WHERE name = ? AND cust_acc_id = ? ',
     insertCustomer: 'INSERT INTO customer(name,phone,sex,address,remarks,cust_acc_id) VALUES(?,?,?,?,?,?) ',
     deleteCustomer: 'DELETE FROM customer WHERE name = ? AND cust_acc_id = ? ',
-    updateCustomer: 'UPDATE customer SET phone = ? ,sex = ? , address = ? , remarks = ? WHERE name = ? and cust_acc_id = ? '
+    updateCustomer: 'UPDATE customer SET phone = ? ,sex = ? , address = ? , remarks = ? WHERE name = ? and cust_acc_id = ? ',
+    selectCustomerNum: 'SELECT count(*) AS value, sex AS name FROM customer WHERE cust_acc_id = ? GROUP BY sex '
 }

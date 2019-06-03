@@ -36,5 +36,9 @@ module.exports = {
     //修改用户
     editCustomer(connection, params, callback) {
         executeQuery(connection, sql.updateCustomer, params, callback)
+    },
+    //根据性别查询用户数量
+    getNumOfCustomers(connection, params, callback) {
+        executeQuery(connection, sql.selectCustomerNum, params, callback)
     }
 }

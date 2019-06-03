@@ -16,11 +16,11 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-app.use(logger('dev'));//打印到控制台
+app.use(logger('dev'));//开发环境将日志打印到控制台
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(history());//使用connect-history-api-fallback
+app.use(history());//使用connect-history-api-fallback解决单页面访问问题
 app.use(express.static(path.join(__dirname, 'dist')));//静态资源
 
 
@@ -28,7 +28,7 @@ app.use(express.static(path.join(__dirname, 'dist')));//静态资源
 //允许跨域
 app.all('*', function (req, res, next) {
   res.header('Access-Control-Allow-Origin', '*')
-  res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Authorization, userName, Accept, X-Requested-With');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Authorization, Accept, X-Requested-With');
   res.header('Access-Control-Allow-Methods', 'PUT,POST,GET,DELETE,OPTIONS')
   res.header('Content-type', 'application/json;charset=utf-8')
   next()

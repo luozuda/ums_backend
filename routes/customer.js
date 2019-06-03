@@ -98,4 +98,15 @@ router.post('/edit', function (req, res, next) {
     })
 })
 
+router.post('/number', function (req, res, next) {
+    poolConnection(connection => {
+        let username = req.username
+        sqlMethods.getACC_ID(connection, [username], acc_id => {
+            sqlMethods.getNumOfCustomers(connection, [acc_id], result => {
+                res.send({ code: 0, msg: '获取用户人数成功', data: result })
+            })
+        })
+    })
+})
+
 module.exports = router;
